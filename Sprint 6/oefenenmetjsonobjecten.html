@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON Operations</title>
+  <script>
+    // Definieer een JSON-object met eigenschappen en waarden
+    const persoon = {
+      naam: "Damian Boesveld",
+      leeftijd: 16,
+      hobby: "Honkbal"
+    };
+
+    // Weergeef het JSON-object op de console
+    console.log("JSON-object:", persoon);
+
+    // Converteer het JSON-object naar een JSON-string met behulp van JSON.stringify()
+    const jsonStr = JSON.stringify(persoon);
+
+    // Weergeef de JSON-string op de console
+    console.log("JSON-string:", jsonStr);
+
+    // Converteer de JSON-string terug naar een JavaScript-object met behulp van JSON.parse()
+    const parsedObj = JSON.parse(jsonStr);
+
+    // Weergeef de eigenschappen van het JavaScript-object op de console
+    console.log("Naam:", parsedObj.naam);
+    console.log("Leeftijd:", parsedObj.leeftijd);
+    console.log("Hobby:", parsedObj.hobby);
+  </script>
+</head>
+<body>
+  <!-- Hier kun je HTML-content toevoegen als je wilt -->
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz</title>
+  <style>
+    .quiz-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .question {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .options {
+      margin-bottom: 20px;
+    }
+
+    .option {
+      margin-bottom: 5px;
+    }
+
+    .submit-btn {
+      display: block;
+      margin: 0 auto;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .score {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .feedback {
+      text-align: center;
+    }
+  </style>
+</head>
+<p><a href="Programmeren.html">Ga hier terug</a></p>
+<body>
+
+  <div class="quiz-container">
+    <h1>Quiz</h1>
+    <div id="question-container"></div>
+    <button id="submit-btn" class="submit-btn">Volgende</button>
+    <div id="score-container"></div>
+    <div id="feedback-container"></div>
+
+    <script>
+      let gegevenAntwoorden = [];
+      let score = 0;
+      let currentQuestion = 0;
+
+      const questionContainer = document.getElementById("question-container");
+      const submitButton = document.getElementById("submit-btn");
+      const scoreContainer = document.getElementById("score-container");
+      const feedbackContainer = document.getElementById("feedback-container");
+
+      const vragen = [
+        {
+          vraag: "Wie schreef het boek Oorlog en Vrede?",
+          antwoorden: ["Leo Tolstoj", "Fjodor Dostojevski", "Anton Tsjechov", "Vladimir Nabokov"],
+          correctAntwoord: "Leo Tolstoj"
+        },
+        {
+          vraag: "Wat is de kleinste planeet in ons zonnestelsel?",
+          antwoorden: ["Mercurius", "Mars", "Pluto", "Aarde"],
+          correctAntwoord: "Mercurius"
+        },
+        {
+          vraag: "Hoeveel oscars heeft de film Citizen Kane gewonnen?",
+          antwoorden: ["4", "8", "11", "0"],
+          correctAntwoord: "0"
+        },
+        {
+          vraag: "Welk element heeft het hoogste smeltpunt?",
+          antwoorden: ["Wolfraam", "Platina", "IJzer", "Goud"],
+          correctAntwoord: "Wolfraam"
+        },
+        {
+          vraag: "In welk jaar vond de Franse Revolutie plaats?",
+          antwoorden: ["1789", "1812", "1848", "F. Scott Fitzgerald"],
+          correctAntwoord: "1789"
+        },
+        {
+          vraag: "Wie ontdekte de zwaartekracht?",
+          antwoorden: ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Nikola Tesla"],
+          correctAntwoord: "Isaac Newton"
+        },
+        {
+          vraag: "Welke van de volgende oceanen is het grootst?",
+          antwoorden: ["Atlantische Oceaan", "Stille Oceaan", "Indische Oceaan", "Noordelijke IJszee"],
+          correctAntwoord: "Stille Oceaan"
+      },
+      {
+          vraag: "Wat is de hoofdstad van Australië?",
+          antwoorden: ["Sydney", "Melbourne", "Canberra", "Perth"],
+          correctAntwoord: "Canberra"
+      },
+      {
+          vraag: "Welke kunstenaar schilderde De Schreeuw?",
+          antwoorden: ["Vincent van Gogh", "Edvard Munch", "Salvador Dalí", "Pablo Picasso"],
+          correctAntwoord: "Edvard Munch"
+      },
+      {
+          vraag: "Hoeveel presidenten hebben de Verenigde Staten gehad?",
+          antwoorden: ["42", "45", "50", "52"],
+          correctAntwoord: "45"
+      }
+    ];
+
+    function weergeefVragen() {
+      if (currentQuestion >= vragen.length) {
+        toonScore();
+        return;
+      }
+
+      const vraag = vragen[currentQuestion];
+
+      questionContainer.innerHTML = "";
+      submitButton.style.display = "block";
+      scoreContainer.textContent = "";
+
+      const vraagElement = document.createElement("div");
+      vraagElement.classList.add("question");
+      vraagElement.textContent = vraag.vraag;
+      questionContainer.appendChild(vraagElement);
+
+      const antwoordContainer = document.createElement("div");
+      antwoordContainer.classList.add("options");
+      questionContainer.appendChild(antwoordContainer);
+
+      vraag.antwoorden.forEach((antwoord) => {
+        const antwoordElement = document.createElement("div");
+        antwoordElement.classList.add("option");
+
+        const inputElement = document.createElement("input");
+        inputElement.setAttribute("type", "radio");
+        inputElement.setAttribute("name", "antwoord");
+        inputElement.setAttribute("value", antwoord);
+
+        const labelElement = document.createElement("label");
+        labelElement.textContent = antwoord;
+
+        antwoordElement.appendChild(inputElement);
+        antwoordElement.appendChild(labelElement);
+        antwoordContainer.appendChild(antwoordElement);
+      });
+    }
+
+    function controleerAntwoord() {
+      const gekozenAntwoord = document.querySelector("input[name=antwoord]:checked");
+
+      if (!gekozenAntwoord) {
+        feedbackContainer.textContent = "Selecteer een antwoord";
+        return;
+      }
+
+      const vraag = vragen[currentQuestion];
+
+      if (gekozenAntwoord.value === vraag.correctAntwoord) {
+        score++;
+      }
+
+      gegevenAntwoorden.push({
+        vraag: vraag.vraag,
+        gegevenAntwoord: gekozenAntwoord.value,
+        correctAntwoord: vraag.correctAntwoord
+      });
+
+      currentQuestion++;
+      weergeefVragen();
+    }
+
+    function toonScore() {
+      questionContainer.innerHTML = "";
+      submitButton.style.display = "none";
+
+      scoreContainer.textContent = `Je score: ${score} van de ${vragen.length} vragen`;
+
+      if (gegevenAntwoorden.length > 0) {
+        feedbackContainer.innerHTML = "<h2>Juiste antwoorden:</h2>";
+
+        gegevenAntwoorden.forEach((antwoord, index) => {
+          const nummer = index + 1;
+          feedbackContainer.innerHTML += `
+          <p>${nummer}. Vraag: ${antwoord.vraag}</p>
+            <p>Gegeven antwoord: ${antwoord.gegevenAntwoord}</p>
+            <p>Correct antwoord: ${antwoord.correctAntwoord}</p>
+          `;
+        });
+      }
+    }
+
+    submitButton.addEventListener("click", controleerAntwoord);
+
+    weergeefVragen();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Datum Operations</title>
+  <script>
+    // Maak een nieuw Datum object voor de huidige datum
+    const huidigeDatum = new Date();
+
+    // Weergeef de huidige datum in het gewenste formaat op de console
+    console.log("Huidige datum:", huidigeDatum.toLocaleDateString());
+
+    // Extracteer specifieke delen van de datum en weergeef ze op de console
+    const dag = huidigeDatum.getDate();
+    const maand = huidigeDatum.getMonth() + 1; // Let op: maanden zijn 0-gebaseerd in JavaScript
+    const jaar = huidigeDatum.getFullYear();
+    console.log("Dag:", dag);
+    console.log("Maand:", maand);
+    console.log("Jaar:", jaar);
+
+    // Maak een tweede Datum object voor een specifieke datum
+    const andereDatum = new Date("2023-01-01");
+
+    // Vergelijk andereDatum met huidigeDatum en weergeef de correcte uitvoer op de console
+    if (andereDatum > huidigeDatum) {
+      console.log("andereDatum is later dan huidigeDatum");
+    } else if (andereDatum < huidigeDatum) {
+      console.log("andereDatum is eerder dan huidigeDatum");
+    } else {
+      console.log("andereDatum is gelijk aan huidigeDatum");
+    }
+  </script>
+</head>
+<body>
+  <!-- Hier kun je HTML-content toevoegen als je wilt -->
+</body>
+</html>

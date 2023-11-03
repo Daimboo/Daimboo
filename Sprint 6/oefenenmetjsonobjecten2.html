@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boekenwinkel JSON Operations</title>
+  <script>
+    // Definieer het JSON-object voor de boekenwinkel met een veld genaamd "boeken" dat een array is van boeken
+    const boekenwinkel = {
+      boeken: [
+        {
+          titel: "Harry Potter en de Steen der Wijzen",
+          auteur: "J.K. Rowling",
+          jaar: 1997
+        },
+        {
+          titel: "De Hobbit",
+          auteur: "J.R.R. Tolkien",
+          jaar: 1937
+        },
+        {
+          titel: "Spijt",
+          auteur: "Carry Slee",
+          jaar: 1996
+        }
+      ]
+    };
+
+    // Weergeef het JSON-object voor de boekenwinkel op de console
+    console.log("JSON-object voor de boekenwinkel:", boekenwinkel);
+
+    // Converteer het JSON-object voor de boekenwinkel naar een JSON-string met behulp van JSON.stringify()
+    const jsonStr = JSON.stringify(boekenwinkel);
+
+    // Weergeef de JSON-string op de console
+    console.log("JSON-string:", jsonStr);
+
+    // Converteer de JSON-string terug naar een JavaScript-object met behulp van JSON.parse()
+    const parsedObj = JSON.parse(jsonStr);
+
+    // Weergeef de eigenschappen van het JavaScript-object voor de boekenwinkel op de console, inclusief de gegevens van de boeken
+    console.log("Boekenwinkel naam:", parsedObj.naam);
+    console.log("Boekenwinkel locatie:", parsedObj.locatie);
+    console.log("Boeken:");
+    parsedObj.boeken.forEach(function(boek) {
+      console.log("Titel:", boek.titel);
+      console.log("Auteur:", boek.auteur);
+      console.log("Jaar:", boek.jaar);
+      console.log("------------");
+    });
+  </script>
+</head>
+<body>
+  <!-- Hier kun je HTML-content toevoegen als je wilt -->
+</body>
+</html>
